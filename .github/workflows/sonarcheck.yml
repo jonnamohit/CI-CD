@@ -54,7 +54,3 @@ jobs:
     steps:
       - name: Deploy
         uses: actions/deploy-pages@v4
- 
-SonarQube Cloud: Scalable AI Code Verification
-Scalable AI code verification for high-velocity teams. Integrate SonarQube with your SaaS DevOps workflow to review AI code and prevent production vulnerabilities.
- 
