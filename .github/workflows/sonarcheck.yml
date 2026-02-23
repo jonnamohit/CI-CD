@@ -26,7 +26,8 @@ jobs:
         run: npx eslint javascript.js || true
  
       - name: Sonar Scan
-        uses: SonarSource/sonarqube-scan-action@v5.0.0
+        # use full commit SHA to avoid dependency resolution errors
+        uses: SonarSource/sonarqube-scan-action@8dbbf266ab49d71bd54c1ed1a7eb1e13e434f5dc
         with:
           args: >
             -Dsonar.projectKey=jonnamohit_CI-CD
