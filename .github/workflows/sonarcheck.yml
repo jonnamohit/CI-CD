@@ -38,9 +38,10 @@ jobs:
           path: output
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
-          args: >
-            -Dsonar.projectKey=jonnamohit_CI-CD
-            -Dsonar.organization=jonnamohit
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          projectKey: jonnamohit_CI-CD
+          organization: jonnamohit
+          extra-args: |
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
