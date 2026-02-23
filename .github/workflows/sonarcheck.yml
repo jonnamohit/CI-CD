@@ -23,7 +23,13 @@ jobs:
       - name: Build site artifact
         run: |
           mkdir -p output
-          cp -r . output/
+          # copy all files except the output directory itself to avoid recursion
+          shopt -s dotglob
+          for f in *; do
+            if [ "$f" != "output" ]; then
+              cp -r "$f" output/
+            fi
+          done
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
