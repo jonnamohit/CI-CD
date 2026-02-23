@@ -20,6 +20,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
+        # publish entire repository; static files are now at root
         path: .
  
   deploy:
