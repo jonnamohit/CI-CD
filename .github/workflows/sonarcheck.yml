@@ -1,4 +1,4 @@
-name: CI-CD Pipeline v2
+name: quality check
  
 on:
     push:
