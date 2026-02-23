@@ -1,35 +1,40 @@
 name: Build and Deploy
- 
+
 on:
-  workflow_dispatch:
- 
+  push:
+    branches: [ main ]
+
 jobs:
   build:
+    name: Build Site
     runs-on: ubuntu-latest
- 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
- 
-      - name: Build Project
-        run: |
-          mkdir dist
-          cp index.html dist/
-          cp style.css dist/
-          cp javascript.js dist/
- 
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          path: dist
- 
+          node-version: '18'
+      - name: Create build output
+        run: |
+          mkdir -p output
+          cp -r frontend/* output/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: site
+          path: output
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
- 
     steps:
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: site
+          path: output
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
