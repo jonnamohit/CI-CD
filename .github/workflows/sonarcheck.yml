@@ -26,7 +26,7 @@ jobs:
         run: npx eslint javascript.js || true
  
       - name: Sonar Scan
-        uses: SonarSource/sonarqube-scan-action@8dbbf266ab49d71bd54c1ed1a7eb1e13e434f5dc
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
           args: >
             -Dsonar.projectKey=kprusty-338_DevOps
