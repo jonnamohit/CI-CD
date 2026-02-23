@@ -40,8 +40,8 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v5.0.0
         with:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          projectKey: jonnamohit_CI-CD
-          organization: jonnamohit
-          extra-args: |
+          # all configuration must be passed via 'args'
+          args: >
+            -Dsonar.projectKey=jonnamohit_CI-CD
+            -Dsonar.organization=jonnamohit
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
