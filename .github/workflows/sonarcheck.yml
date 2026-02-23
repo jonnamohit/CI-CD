@@ -31,6 +31,15 @@ jobs:
             fi
           done
 
+      - name: Debug secret
+        run: |
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+            echo "SONAR_TOKEN is empty or not available to workflow"
+            exit 1
+          else
+            echo "SONAR_TOKEN is set (masked)"
+          fi
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
