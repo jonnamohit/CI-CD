@@ -1,0 +1,40 @@
+name: SonarQube Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  sonar:
+    name: Analyze with SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build site artifact
+        run: |
+          mkdir -p output
+          cp -r . output/
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: output
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=jonnamohit_CI-CD
+            -Dsonar.organization=jonnamohit
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
